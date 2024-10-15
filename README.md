@@ -39,14 +39,14 @@ sysopctl [command] [options]
 
 
 Available Commands
-service list: List all active system services.
-service start <service-name>: Start a specific service.
-service stop <service-name>: Stop a specific service.
-system load: Display current system load averages.
-disk usage: Show disk usage statistics by partition.
-process monitor: Monitor real-time process activity.
-logs analyze: Analyze recent critical system log entries.
-backup <path>: Backup files from the specified path.
+- **service list:** List all active system services.
+- **service start <service-name>:** Start a specific service.
+- **service stop <service-name>:** Stop a specific service.
+- system load: Display current system load averages.
+- disk usage: Show disk usage statistics by partition.
+- process monitor: Monitor real-time process activity.
+- logs analyze: Analyze recent critical system log entries.
+- backup <path>: Backup files from the specified path.
 Options
 --help, -h: Show the help message and usage instructions.
 --version, -v: Show the current version of sysopctl.

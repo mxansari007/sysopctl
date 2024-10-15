@@ -39,7 +39,7 @@ sysopctl [command] [options]
 
 
 Available Commands
-- **service list:** List all active system services.
+- ** service list: ** List all active system services.
 - **service start <service-name>:** Start a specific service.
 - **service stop <service-name>:** Stop a specific service.
 - system load: Display current system load averages.

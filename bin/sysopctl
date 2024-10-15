@@ -1,0 +1,111 @@
+#!/bin/bash
+
+# Define the current script's directory for sourcing dependencies
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MODULE_DIR="$BASE_DIR/../modules"
+
+# Importing all required scripts
+source "$MODULE_DIR/services.sh"
+source "$MODULE_DIR/system_health.sh"
+source "$MODULE_DIR/disk.sh"
+source "$MODULE_DIR/process.sh"
+source "$MODULE_DIR/logs.sh"
+source "$MODULE_DIR/backup.sh"
+
+APP_VERSION="v0.1.0"
+
+# Function to display help information
+display_help() {
+    cat << HELP_TEXT
+sysopctl - System Operations Controller ($APP_VERSION)
+
+Usage: sysopctl [command] [options]
+
+Commands:
+
+  service list                      Display running services
+  service start <name>              Initiate a service
+  service stop <name>               Halt a service
+
+  system load                       Show system load statistics
+
+  disk usage                        Display disk usage details
+
+  process monitor                   Track system processes
+
+  logs analyze                      Evaluate system logs
+
+  backup <path>                     Create a backup of system files
+
+  --help                            Display this help guide
+  --version                         Display version details
+
+Examples:
+
+  sysopctl service list
+  sysopctl service start apache2
+  sysopctl system load
+  sysopctl disk usage
+  sysopctl process monitor
+  sysopctl logs analyze
+  sysopctl backup /home/user/documents
+
+HELP_TEXT
+}
+
+# Function to show version details
+display_version() {
+    echo "sysopctl version $APP_VERSION"
+}
+
+# Main command dispatcher
+case $1 in
+    --help|-h)
+        display_help
+        ;;
+    --version|-v)
+        display_version
+        ;;
+    service)
+        service "$2" "$3"
+        ;;
+    system)
+        if [[ $2 == "load" ]]; then
+            system_load
+        else
+            echo "Unknown system command."
+            display_help
+        fi
+        ;;
+    disk)
+        if [[ $2 == "usage" ]]; then
+            disk_usage
+        else
+            echo "Unknown disk command."
+            display_help
+        fi
+        ;;
+    process)
+        if [[ $2 == "monitor" ]]; then
+            process_monitor
+        else
+            echo "Unknown process command."
+            display_help
+        fi
+        ;;
+    logs)
+        if [[ $2 == "analyze" ]]; then
+            logs_analyze
+        else
+            echo "Unknown logs command."
+            display_help
+        fi
+        ;;
+    backup)
+        backup_system "$2"
+        ;;
+    *)
+        echo "Unrecognized command."
+        display_help
+        ;;
+esac
